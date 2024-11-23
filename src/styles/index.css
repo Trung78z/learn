@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.content-scroll::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 20px;
+}
+.content-scroll::-webkit-scrollbar-thumb {
+  background-color: #2b346f;
+  border-radius: 20px;
+}
+.content-scroll[data-scroll-locked]::-webkit-scrollbar {
+  width: 10px;
+  overflow-y: scroll;
+}
