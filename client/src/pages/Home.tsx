@@ -14,6 +14,7 @@ import {
 } from "../utils/helpers";
 import { AiFillCaretUp } from "react-icons/ai";
 import { deleteTodo, getTodo } from "../features/todo/todoSlice";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -56,8 +57,21 @@ export default function Home() {
     navigate("/add-todo");
   };
   const handleDelete = (id: number) => {
-    dispatch(deleteTodo(id));
-    setDataStatus(data);
+    try {
+      dispatch(deleteTodo(id));
+      setDataStatus(data);
+      Swal.fire({
+        icon: "success",
+        title: "Delete Task successfully",
+        text: "Delete Task successfully!",
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Fail delete Task",
+        text: "Fail delete Task!",
+      });
+    }
   };
   return (
     <div>

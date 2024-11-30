@@ -84,7 +84,7 @@ function EditTodo({ dataOld }: { dataOld: dataType }) {
   });
   useEffect(() => {
     setValue("task", dataOld.task);
-    setValue("date", new Date(dataOld.date).toISOString().slice(0, 10));
+    setValue("date", new Date(dataOld?.date).toISOString().slice(0, 10));
   }, []);
 
   const handleOpenModal = () => {
@@ -115,6 +115,7 @@ function EditTodo({ dataOld }: { dataOld: dataType }) {
     };
     try {
       dispatch(editTodo(data));
+      handleCloseModal();
       Swal.fire({
         icon: "success",
         title: "Edit Task successfully",

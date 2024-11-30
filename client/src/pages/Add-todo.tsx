@@ -44,13 +44,21 @@ export default function AddTodo() {
       priority: priority,
       status: false,
     };
-    dispatch(addTodo(data));
-    Swal.fire({
-      icon: "success",
-      title: "Add Task successfully",
-      text: "Add Task successfully!",
-    });
-    navigate("/");
+    try {
+      dispatch(addTodo(data));
+      Swal.fire({
+        icon: "success",
+        title: "Add Task successfully",
+        text: "Add Task successfully!",
+      });
+      navigate("/");
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Fail add Task",
+        text: "Fail add Task!",
+      });
+    }
   };
   const handleBack = () => {
     navigate("/");

@@ -94,17 +94,17 @@ export const todoSlice = createSlice({
       const newTask = { ...action.payload, id: newId };
       state.data.push(newTask);
     },
-    updateCase: (state, action: PayloadAction<dataType[]>) => {
+    updateCase: (state, action) => {
       state.loading = false;
       state.data = action.payload;
     },
-    updateStatusCase: (state, action: PayloadAction<number>) => {
+    updateStatusCase: (state, action) => {
       state.loading = false;
       state.data = state.data.map((task) =>
         task.id === action.payload ? { ...task, status: !task.status } : task,
       );
     },
-    deleteCase: (state, action: PayloadAction<number>) => {
+    deleteCase: (state, action) => {
       state.loading = false;
       state.data = state.data.filter((item) => item.id !== action.payload);
     },
@@ -124,13 +124,10 @@ export const todoSlice = createSlice({
     builder.addCase(addTodo.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(
-      addTodo.fulfilled,
-      (state, action: PayloadAction<dataType>) => {
-        state.loading = false;
-        state.data.push(action.payload);
-      },
-    );
+    builder.addCase(addTodo.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data.push({ ...action.meta.arg, id: action.payload });
+    });
     builder.addCase(addTodo.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
@@ -138,17 +135,14 @@ export const todoSlice = createSlice({
     builder.addCase(editTodo.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(
-      editTodo.fulfilled,
-      (state, action: PayloadAction<dataType>) => {
-        console.log(action.payload);
-        state.loading = false;
-        const index = state.data.findIndex(
-          (todo) => todo.id === action.payload.id,
-        );
-        if (index !== -1) state.data[index] = action.payload;
-      },
-    );
+    builder.addCase(editTodo.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action.meta);
+      const index = state.data.findIndex(
+        (todo) => todo.id === action.meta.arg.id,
+      );
+      if (index !== -1) state.data[index] = action.meta.arg;
+    });
     builder.addCase(editTodo.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;

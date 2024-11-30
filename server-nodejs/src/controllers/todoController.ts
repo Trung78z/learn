@@ -29,7 +29,7 @@ export const createNewTodo = async (req: Request, res: Response) => {
   try {
     const { task, date, priority, status } = req.body;
     const todo = await todoService.createTodo(task, date, priority, status);
-    res.status(201).json({ message: todo, success: false });
+    res.status(201).json({ message: todo, success: true });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
@@ -60,8 +60,8 @@ export const updateTodo = async (req: Request, res: Response) => {
     const { task, date, priority, status } = req.body;
     await todoService.updateTodoById(id, task, date, priority, status);
     res.status(200).json({
+      message: `Todo with id ${id} updated successfully.`,
       success: true,
-      message: { id, task, date, priority, status },
     });
   } catch (error) {
     console.log(error);
