@@ -1,26 +1,15 @@
-import { createPool } from "mysql2/promise";
-import { configDotenv } from "dotenv";
-configDotenv();
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient({ log: ["info"] });
 
-const pool = createPool({
-  uri: process.env.DATABASE_URL as string,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
-const logConnectionStatus = async () => {
-  let connection;
+async function checkConnection() {
   try {
-    connection = await pool.getConnection();
-    console.log("Connected to the database");
+    await prisma.$connect();
+    console.log("Database connection successful!");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("Database connection failed:", error);
   } finally {
-    if (connection) {
-      connection.release();
-    }
+    await prisma.$disconnect();
   }
-};
-
-logConnectionStatus();
-export default pool;
+}
+checkConnection();
+export default prisma;

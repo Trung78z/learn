@@ -1,0 +1,9 @@
+model todos {
+    id        Int      @id @default(autoincrement())
+    task      String
+    date      String
+    priority  String
+    status    Boolean
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

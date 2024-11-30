@@ -13,7 +13,7 @@ import {
   getTodayTasks,
 } from "../utils/helpers";
 import { AiFillCaretUp } from "react-icons/ai";
-import { deleteCase } from "../features/todo/todoSlice";
+import { deleteTodo, getTodo } from "../features/todo/todoSlice";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -23,7 +23,11 @@ export default function Home() {
   useEffect(() => {
     setDataStatus(data);
   }, [data]);
+
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getTodo());
+  }, [dispatch]);
   const handleActive = (id: number) => {
     const updatedActive = active.map((item) => ({
       ...item,
@@ -52,7 +56,7 @@ export default function Home() {
     navigate("/add-todo");
   };
   const handleDelete = (id: number) => {
-    dispatch(deleteCase(id));
+    dispatch(deleteTodo(id));
     setDataStatus(data);
   };
   return (

@@ -4,4 +4,6 @@ export interface dataType {
   date: string;
   priority: string;
   status: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAppDispatch } from "../hooks/hook-redux";
-import { addCase } from "../features/todo/todoSlice";
+import { addTodo } from "../features/todo/todoSlice";
 import { dataTypeAdd } from "../types/enum";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ export default function AddTodo() {
       priority: priority,
       status: false,
     };
-    dispatch(addCase(data));
+    dispatch(addTodo(data));
     Swal.fire({
       icon: "success",
       title: "Add Task successfully",

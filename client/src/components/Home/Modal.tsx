@@ -19,20 +19,12 @@ export default function Modal({
           <h2>{title}</h2>
           <button
             onClick={onClose}
-            className="cursor-pointer rounded-md border-none bg-[#007bff] px-2 py-4 text-white hover:bg-[#0056b3]"
+            className="cursor-pointer rounded-md border-none bg-[#007bff] px-2 py-2 text-white hover:bg-[#0056b3]"
           >
             X
           </button>
         </div>
         <div className="mt-5">{children}</div>
-        <div className="mt-5 text-right">
-          <button
-            onClick={onClose}
-            className="cursor-pointer rounded-md border-none bg-[#007bff] px-2 py-4 text-white hover:bg-[#0056b3]"
-          >
-            Close
-          </button>
-        </div>
       </div>
     </div>
   );
