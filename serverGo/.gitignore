@@ -1,2 +1,5 @@
 # **/cmd
 **/.env
+.air.toml
+tmp/
+air.log
