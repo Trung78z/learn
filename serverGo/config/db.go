@@ -9,7 +9,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 )
 
-var db *sql.DB
+var DB *sql.DB
 
 func InitDB() {
 	cfg := mysql.Config{
@@ -19,13 +19,22 @@ func InitDB() {
 		Addr:   "127.0.0.1:3306",
 		DBName: "recordings",
 	}
-	db, err := sql.Open("mysql", cfg.FormatDSN())
+
+	var err error
+
+	DB, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error opening DB connection:", err)
 	}
-	pingErr := db.Ping()
-	if pingErr != nil {
-		log.Fatal(pingErr)
+
+	if err := DB.Ping(); err != nil {
+		log.Fatal("Error connecting to DB:", err)
 	}
-	fmt.Println("Connected!")
+
+	fmt.Println("Connected to the database!")
+}
+func CloseDB() {
+	if err := DB.Close(); err != nil {
+		log.Fatal("Error closing the database:", err)
+	}
 }
